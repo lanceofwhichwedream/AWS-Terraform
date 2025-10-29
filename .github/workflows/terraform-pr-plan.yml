@@ -5,10 +5,20 @@ name: Terraform Speculative Run
 
 on:
     pull_request:
-        branches:
-            - 'main'
-            - 'feature/**'
-        types: [opened, reopened]
+      branches:
+        - 'main'
+        - 'feature/**'
+      types: [opened, reopened]
+      paths-ignore:
+        - ".github/**"
+        - "**.md"
+    push:
+      branches:
+        - 'main'
+        - 'feature/**'
+      paths-ignore:
+        - ".github/**"
+        - "**.md"
 
 jobs:
     terraform-speculative-run:
