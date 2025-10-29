@@ -11,7 +11,7 @@ resource "aws_autoscaling_group" "cool_autoscaler" {
   desired_capacity   = var.desired_capacity
 
   launch_template {
-    id      = aws_launch_template.cool_application
+    id      = aws_launch_template.cool_application.id
     version = "$Latest"
   }
 }
