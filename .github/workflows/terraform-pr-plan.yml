@@ -9,7 +9,6 @@ on:
             - 'main'
             - 'feature/**'
         types: [opened, reopened]
-env:
 
 jobs:
     terraform-speculative-run:
