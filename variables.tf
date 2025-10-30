@@ -1,7 +1,7 @@
 variable "image_id" {
   description = "Image ID to use in the Launch Template"
   type        = string
-  default     = "ami-1a2b3c"
+  default     = "ami-0bc691261a82b32bc"
 }
 
 variable "instance_type" {
