@@ -1,7 +1,13 @@
 resource "aws_launch_template" "cool_application" {
-  name_prefix   = "application"
+  name_prefix   = "application-${var.env}"
   image_id      = var.image_id
   instance_type = var.instance_type
+
+  tag_specifications {
+    tags = {
+      Environment = var.env
+    }
+  }
 }
 
 resource "aws_autoscaling_group" "cool_autoscaler" {
@@ -14,10 +20,16 @@ resource "aws_autoscaling_group" "cool_autoscaler" {
     id      = aws_launch_template.cool_application.id
     version = "$Latest"
   }
+
+  tag {
+    key = "Environment"
+    value = var.env
+    propagate_at_launch = true
+  }
 }
 
 resource "aws_lb_target_group" "target_group" {
-  name     = "tf-lb-tg-cool-application" #Add Env var
+  name     = "tf-lb-tg-cool-application-${var.env}"
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.cool_network.id

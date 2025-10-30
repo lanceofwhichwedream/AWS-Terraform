@@ -27,3 +27,9 @@ variable "desired_capacity" {
   type        = number
   default     = 2
 }
+
+variable "env" {
+  description = "Shortname of the Environment"
+  type = string
+  default = "dev"
+}

@@ -1,6 +1,9 @@
 resource "aws_vpc" "cool_network" {
   cidr_block                       = "10.0.0.0/16"
   assign_generated_ipv6_cidr_block = true
+  tags = {
+    Environment = var.env
+  }
 }
 
 resource "aws_security_group" "security_network" {
@@ -9,7 +12,7 @@ resource "aws_security_group" "security_network" {
   vpc_id      = aws_vpc.cool_network.id
 
   tags = {
-    Name = "network_rules"
+    Environment = var.env
   }
 }
 
