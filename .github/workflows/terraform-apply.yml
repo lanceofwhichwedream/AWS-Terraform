@@ -48,20 +48,7 @@ jobs:
               id: plan
               run: |
                 terraform plan -var-file="./${{ env.ENVIRONMENT }}.tfvars" -out=plan.tf -input=false
-                TF_EXIT_CODE=$?
-                if [ ${TF_EXIT_CODE} -eq 2 ] ; then
-                    echo "Infrastructure Changes Detected"
-                    echo "plan-exitcode=2" >> "${GITHUB_OUTPUT}"
-                    exit 0
-                else
-                    exit ${TF_EXIT_CODE}
-                fi
-
-            - name: Show Terraform Plan
-              run: |
-                terraform show plan.tf
 
             - name: Terraform Apply
-              if: ${{ steps.plan.outputs.plan-exitcode == 2}}
               run: |
                 terraform apply -input=false -auto-approve plan.tf
