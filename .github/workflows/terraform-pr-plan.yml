@@ -1,4 +1,7 @@
-# This workflow is inspired by the Hashicorp Workflow with a focus on using local terraform and stqate files rather than terraform cloud
+# Written by Lance Zeligman 
+# This workflow is loosely inspired by the Hashicorp Workflow 
+# with a focus on using terraform and S3 hosted state files 
+# rather than terraform cloud
 ---
 
 name: Terraform Speculative Run
