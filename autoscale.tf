@@ -4,6 +4,8 @@ resource "aws_launch_template" "cool_application" {
   instance_type = var.instance_type
 
   tag_specifications {
+    resource_type = "instance"
+
     tags = {
       Environment = var.env
     }
