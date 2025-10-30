@@ -45,7 +45,7 @@ jobs:
                 echo $(pwd)
                 echo "tfpath ${{ github.event.inputs }}"
                 echo "Running Tf Init"
-                terraform init
+                terraform init -backend-config="./backends/dev.hcl" -input=false
             
             - name: Terraform Validate
               run: |
