@@ -7,7 +7,7 @@ variable "image_id" {
 variable "instance_type" {
   description = "What Type of instance to use in the Launch Template"
   type        = string
-  default     = "t2.micro"
+  default     = "t3.micro"
 }
 
 variable "min_size" {
