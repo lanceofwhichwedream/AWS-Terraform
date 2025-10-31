@@ -5,3 +5,10 @@ resource "aws_s3_bucket" "lb_logs" {
     Environment = var.env
   }
 }
+
+#import {
+#  to = aws_s3_bucket.lb_logs
+#  identity = {
+#    bucket = "lb-logs-${var.env}"
+#  }
+#}

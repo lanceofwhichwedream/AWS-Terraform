@@ -37,11 +37,22 @@ resource "aws_lb_target_group" "target_group" {
   vpc_id   = aws_vpc.cool_network.id
 }
 
-resource "aws_autoscaling_traffic_source_attachment" "autoscale_traffic_source" {
-  autoscaling_group_name = aws_autoscaling_group.cool_autoscaler.id
+# aws_autoscaling_traffic_source_attachment will take upwards of 30 minutes to provision in aws
+# that being said, it does provision therefore we will use the import command to pull it into the
+# state file instead
 
-  traffic_source {
-    identifier = aws_lb_target_group.target_group.arn
-    type       = "elbv2"
-  }
-}
+#import {
+#  to = aws_autoscaling_traffic_source_attachment.autoscale_traffic_source
+#  identity = {
+#    "arn" = "arn:aws:elasticloadbalancing:eu-west-1:036449353719:targetgroup/tf-lb-tg-cool-application-dev/72246473c6d1e220"
+#  }
+#}
+
+#resource "aws_autoscaling_traffic_source_attachment" "autoscale_traffic_source" {
+#  autoscaling_group_name = aws_autoscaling_group.cool_autoscaler.id
+
+#  traffic_source {
+#    identifier = aws_lb_target_group.target_group.arn
+#    type       = "elbv2"
+#  }
+#}
