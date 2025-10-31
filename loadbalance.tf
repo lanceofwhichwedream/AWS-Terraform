@@ -3,7 +3,7 @@ resource "aws_lb" "cool_loadbalancer" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.security_network.id]
-  subnets            = aws_vpc.cool_network.id
+  subnets            = [ for subnet in aws_vpc.cool_network : subnet.id ]
 
   access_logs {
     bucket  = aws_s3_bucket.lb_logs.id
