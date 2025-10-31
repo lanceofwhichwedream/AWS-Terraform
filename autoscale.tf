@@ -24,8 +24,8 @@ resource "aws_autoscaling_group" "cool_autoscaler" {
   }
 
   tag {
-    key = "Environment"
-    value = var.env
+    key                 = "Environment"
+    value               = var.env
     propagate_at_launch = true
   }
 }
