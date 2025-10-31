@@ -2,7 +2,7 @@ resource "aws_lb" "cool_loadbalancer" {
   name               = "cool-loadbalancer-${var.env}"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.id]
+  security_groups    = [aws_security_group.security_network.id]
   subnets            = aws_vpc.cool_network.id
 
   access_logs {
