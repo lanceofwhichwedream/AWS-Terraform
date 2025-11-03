@@ -1,0 +1,44 @@
+# Written By Lance Zeligman
+name: Terraform Plan & Apply
+on:
+    workflow_dispatch:
+        inputs:
+            ENVIRONMENT:
+                type: choice
+                required: true
+                default: "dev"
+                description: "Name of the Environment that should be destroyed"
+                options:
+                    - dev
+                    - test
+                    - stage
+                    - prod
+
+jobs:
+    terraform-apply-run:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v5
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: eu-west-1
+
+            - name: Setup Terraform CLI
+              uses: hashicorp/setup-terraform@v3
+
+            - name: Terraform Init
+              run: |
+                echo $(pwd)
+                echo "tfpath ${{ github.event.inputs }}"
+                echo "Running Tf Init"
+                terraform init -backend-config="./backends/${{ env.ENVIRONMENT }}.hcl" -input=false
+
+            - name: Terraform Destroy
+              if: ${{ steps.plan.outputs.plan-exitcode == 2}}
+              run: |
+                terraform destroy -var-file="./${{ env.ENVIRONMENT }}.tfvars -auto-approve -input=false
