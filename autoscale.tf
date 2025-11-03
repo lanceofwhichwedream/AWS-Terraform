@@ -16,7 +16,6 @@ resource "aws_autoscaling_group" "cool_autoscaler" {
   availability_zones = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
   min_size           = var.min_size
   max_size           = var.max_size
-  desired_capacity   = var.desired_capacity
 
   launch_template {
     id      = aws_launch_template.cool_application.id
@@ -35,6 +34,18 @@ resource "aws_lb_target_group" "target_group" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.cool_network.id
+}
+
+resource "aws_autoscaling_policy" "avg_cpu_scaling_policy" {
+  name                   = "avg_cpu_scaling_policy"
+  policy_type            = "TargetTrackingScaling"
+  autoscaling_group_name = aws_autoscaling_group.cool_autoscaler.name
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+    target_value = 20.0
+  }
 }
 
 # aws_autoscaling_traffic_source_attachment will take upwards of 30 minutes to provision in aws
