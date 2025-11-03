@@ -1,5 +1,5 @@
 # Written By Lance Zeligman
-name: Terraform Plan & Apply
+name: Terraform Destroy
 on:
     workflow_dispatch:
         inputs:
