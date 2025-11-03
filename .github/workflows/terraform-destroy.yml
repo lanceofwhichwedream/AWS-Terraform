@@ -15,7 +15,7 @@ on:
                     - prod
 
 jobs:
-    terraform-apply-run:
+    terraform-destroy-run:
         env:
             ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
         runs-on: ubuntu-latest
