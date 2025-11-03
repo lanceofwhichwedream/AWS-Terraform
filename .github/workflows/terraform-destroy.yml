@@ -41,6 +41,5 @@ jobs:
                 terraform init -backend-config="./backends/${{ env.ENVIRONMENT }}.hcl" -input=false
 
             - name: Terraform Destroy
-              if: ${{ steps.plan.outputs.plan-exitcode == 2}}
               run: |
                 terraform destroy -var-file="./${{ env.ENVIRONMENT }}.tfvars -auto-approve -input=false
