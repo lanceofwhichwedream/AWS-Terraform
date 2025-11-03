@@ -16,6 +16,8 @@ on:
 
 jobs:
     terraform-apply-run:
+        env:
+            ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Code
